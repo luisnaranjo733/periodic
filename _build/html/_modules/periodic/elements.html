@@ -1,0 +1,213 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>periodic.elements &mdash; periodic v0 documentation</title>
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="periodic v0 documentation" href="../../index.html" />
+    <link rel="up" title="periodic" href="../periodic.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">periodic v0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../periodic.html" accesskey="U">periodic</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for periodic.elements</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/env python</span>
+
+<span class="kn">import</span> <span class="nn">element_data</span>
+
+<span class="c">#invatomicmass = { 1.0079: &#39;H&#39;}</span>
+<span class="c">#inv_pro = {1:&#39;H&#39;}</span>
+<span class="c">#symbols = {&#39;krypton&#39;:&#39;Kr&#39;}</span>
+<span class="c">#elements = {&#39;Os&#39; : {&#39;mass&#39;: 190.2 , &#39;name&#39; : &#39;osmium&#39; , &#39;atomic&#39; : 76 , &#39;alt&#39; : &#39;os&#39;,  &#39;charge&#39; : (3, 4), &#39;type&#39;: &#39;metal&#39;} ,</span>
+<span class="n">ideas</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+<span class="s">base class for elements</span>
+<span class="s">error class for not found elements</span>
+<span class="s">&#39;&#39;&#39;</span>
+
+<span class="n">DEBUG</span> <span class="o">=</span> <span class="bp">True</span>
+
+<span class="k">def</span> <span class="nf">__converter__</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">==</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">each</span><span class="p">][</span><span class="s">&#39;mass&#39;</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>    <span class="k">pass</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">==</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">each</span><span class="p">][</span><span class="s">&#39;atomic&#39;</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>    <span class="k">pass</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">element</span> <span class="o">==</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">each</span><span class="p">][</span><span class="s">&#39;name&#39;</span><span class="p">]:</span>
+                <span class="k">return</span> <span class="n">element</span>
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>    <span class="k">pass</span>
+    
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">element</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="ow">in</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">element</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>    <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">find</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Takes atomic mass (float only), atomic number (integer or string), symbol, or abbreviation</span>
+<span class="sd">    of an element.</span>
+
+<span class="sd">    Returns the element&#39;s capitalized symbol, for use by the `Element class &lt;#elements.Element&gt;`_.</span>
+
+<span class="sd">    &gt;&gt;&gt; from chem.periodic import *</span>
+<span class="sd">    &gt;&gt;&gt; find(&#39;h&#39;)</span>
+<span class="sd">    &#39;H&#39;</span>
+<span class="sd">    &gt;&gt;&gt; find(12)</span>
+<span class="sd">    &#39;Mg&#39;</span>
+<span class="sd">    &gt;&gt;&gt; find(&#39;boron&#39;)</span>
+<span class="sd">    &#39;B&#39;</span>
+<span class="sd">    &gt;&gt;&gt; find(&#39;12&#39;)</span>
+<span class="sd">    &#39;Mg&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">original_input</span> <span class="o">=</span> <span class="n">element</span>
+    <span class="n">element</span> <span class="o">=</span> <span class="n">__converter__</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">==</span> <span class="nb">int</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">element_data</span><span class="o">.</span><span class="n">inv_pro</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">==</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">element_data</span><span class="o">.</span><span class="n">invatomicmass</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">==</span> <span class="nb">str</span><span class="p">:</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">element</span><span class="p">]:</span>
+            <span class="k">return</span> <span class="n">element</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">element</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">element_data</span><span class="o">.</span><span class="n">symbols</span><span class="p">[</span><span class="n">element</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Error: &#39;</span><span class="si">%s</span><span class="s">&#39; not found&quot;</span> <span class="o">%</span> <span class="n">original_input</span>
+
+<span class="c">#elements = {&#39;Os&#39; : {&#39;mass&#39;: 190.2 , &#39;name&#39; : &#39;osmium&#39; , &#39;atomic&#39; : 76 , &#39;alt&#39; : &#39;os&#39;,  &#39;charge&#39; : (3, 4), &#39;type&#39;: &#39;metal&#39;} ,</span>
+
+<span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="n">element</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Takes input identical to the `find fuction &lt;#elements.find&gt;`_.</span>
+
+<span class="sd">    &gt;&gt;&gt; import periodic</span>
+<span class="sd">    &gt;&gt;&gt; hydrogen = periodic.get(&#39;hydrogen&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; print hydrogen.symbol</span>
+<span class="sd">    &#39;H&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">symbol</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">element</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="n">symbol</span><span class="p">]</span>
+
+<div class="viewcode-block" id="element"><a class="viewcode-back" href="../../index.html#periodic.elements.element">[docs]</a><span class="k">class</span> <span class="nc">element</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Takes a periodic data (ex: &#39;Ag&#39;, &#39;12&#39;, 1, 15.999) as input.</span>
+<span class="sd">    It relies on the `finder function &lt;#elements.find&gt;`_.</span>
+
+<span class="sd">    &gt;&gt;&gt; import periodic</span>
+<span class="sd">    &gt;&gt;&gt; osmium=periodic.element(&#39;Os&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; osmium.name</span>
+<span class="sd">    &#39;osmium&#39;</span>
+<span class="sd">    &gt;&gt;&gt; osmium.symbol</span>
+<span class="sd">    &#39;Os&#39;</span>
+<span class="sd">    &gt;&gt;&gt; osmium.atomic</span>
+<span class="sd">    76</span>
+<span class="sd">    &gt;&gt;&gt; osmium.charge</span>
+<span class="sd">    (3, 4)</span>
+<span class="sd">    &gt;&gt;&gt; osmium.type</span>
+<span class="sd">    &#39;metal&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;A function for doing stuff!</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; print &quot;TEST&quot;</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s">&quot;TEST&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">symbol</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">symbol</span> <span class="o">=</span> <span class="n">find</span><span class="p">(</span><span class="n">symbol</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">element</span> <span class="o">=</span> <span class="n">element_data</span><span class="o">.</span><span class="n">elements</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">symbol</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mass</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">[</span><span class="s">&#39;mass&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">atomic</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">[</span><span class="s">&#39;atomic&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">charge</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">[</span><span class="s">&#39;charge&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">element</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
+
+</div>
+<span class="k">if</span> <span class="n">DEBUG</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">doctest</span>
+    <span class="n">doctest</span><span class="o">.</span><span class="n">testmod</span><span class="p">()</span>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../../index.html">periodic v0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
+          <li><a href="../periodic.html" >periodic</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Luis Naranjo.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>

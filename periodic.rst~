@@ -1,0 +1,35 @@
+Elements
+=========
+
+.. automodule:: periodic
+   :platform: Linux, Mac, Windows
+   :synopsis: A useful module indeed.
+
+Basic Usage
+-----------
+
+.. autoclass:: element
+
+chem also includes loose atomic mass variables
+
+>>> from periodic.mass import *
+>>> H
+1.0079
+>>> H+Cl
+36.4609
+>>> H+CL
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'CL' is not defined
+
+.. note::
+
+   Notice the NameError when we tried to use CL. Remember that all the elements have the first letter capitalized only.
+
+.. versionadded:: 2.0
+   This whole module was re-written, with the same data.
+
+Installation
+------------
+>>> pip install periodic
+

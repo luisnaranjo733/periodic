@@ -1,0 +1,153 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Elements &mdash; periodic v0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="periodic v0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">periodic v0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-periodic">
+<span id="elements"></span><h1>Elements<a class="headerlink" href="#module-periodic" title="Permalink to this headline">¶</a></h1>
+<p><em>Platforms: </em>Unix, Windows</p>
+<div class="section" id="basic-usage">
+<h2>Basic Usage<a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="periodic.element">
+<em class="property">class </em><tt class="descclassname">periodic.</tt><tt class="descname">element</tt><big>(</big><em>symbol</em><big>)</big><a class="headerlink" href="#periodic.element" title="Permalink to this definition">¶</a></dt>
+<dd><p>Takes a periodic data (ex: &#8216;Ag&#8217;, &#8216;12&#8217;, 1, 15.999) as input.
+It relies on the <a class="reference external" href="#elements.find">finder function</a>.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">periodic</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">osmium</span><span class="o">=</span><span class="n">periodic</span><span class="o">.</span><span class="n">element</span><span class="p">(</span><span class="s">&#39;Os&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">osmium</span><span class="o">.</span><span class="n">name</span>
+<span class="go">&#39;osmium&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">osmium</span><span class="o">.</span><span class="n">symbol</span>
+<span class="go">&#39;Os&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">osmium</span><span class="o">.</span><span class="n">atomic</span>
+<span class="go">76</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">osmium</span><span class="o">.</span><span class="n">charge</span>
+<span class="go">(3, 4)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">osmium</span><span class="o">.</span><span class="n">type</span>
+<span class="go">&#39;metal&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<p>chem also includes loose atomic mass variables</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">periodic.mass</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span>
+<span class="go">1.0079</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="o">+</span><span class="n">Cl</span>
+<span class="go">36.4609</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">H</span><span class="o">+</span><span class="n">CL</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">&quot;&lt;stdin&gt;&quot;</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+<span class="gr">NameError</span>: <span class="n">name &#39;CL&#39; is not defined</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Notice the NameError when we tried to use CL. Remember that all the elements have the first letter capitalized only.</p>
+</div>
+<p class="versionadded">
+<span class="versionmodified">New in version 2.0: </span>This whole module was re-written, with the same data.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">pip</span> <span class="n">install</span> <span class="n">periodic</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Elements</a><ul>
+<li><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/docs/periodic.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li><a href="../index.html">periodic v0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2012, Luis Naranjo.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.0.7.
+    </div>
+  </body>
+</html>
