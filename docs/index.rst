@@ -6,12 +6,10 @@
 Welcome to periodic's documentation!
 ====================================
 
-Contents:
-
 .. toctree::
    :maxdepth: 2
 
-
+   auto
 
 Indices and tables
 ==================
