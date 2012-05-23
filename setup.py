@@ -5,13 +5,13 @@ def read(fname):
     
 setup(
     name = "periodic",
-    version = "2.0",
+    version = "2.1",
     author = "Jose Luis Naranjo Gomez",
     author_email = "luisnaranjo733@hotmail.com",
     description = ("A periodic table API."),
     license = "GNU GPL",
     keywords = "chem chemistry periodic table finder elements",
-    url = "https://github.com/doubledubba/chem",
+    url = "https://github.com/doubledubba/periodic",
     packages=['periodic'],
     long_description=read('README.txt'),
     classifiers=[

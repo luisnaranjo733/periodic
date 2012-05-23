@@ -17,7 +17,9 @@ for atomic, mass, name, symbol in _reader:
         ('name', name)])
 
 def convert(element):
-    """Convert any element-string into its' corresponding symbol, if it is a real element."""
+    """Convert any element-string into its' corresponding symbol, if it is a real element.
+
+Stuff."""
 
     try:
         element = float(element)
