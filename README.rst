@@ -5,6 +5,8 @@ A python API for the periodic table.
 
 Created by Luis Naranjo <luisnaranjo733@hotmail.com>
 
+Further documentation at periodic.readthedocs.org
+
 Basic Usage
 ===========
 
