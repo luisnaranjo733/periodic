@@ -1,11 +1,16 @@
-Welcome to Periodic's documentation!
-=====================================
+.. periodic documentation master file, created by
+   sphinx-quickstart on Tue May 22 22:33:32 2012.
+   You can adapt this file completely to your liking, but it should at least
+   contain the root `toctree` directive.
 
+Welcome to periodic's documentation!
+====================================
 
+Contents:
 
-.. automodule:: periodic
-   :platform: Linux, Mac, Windows
-   :synopsis: A python object-ooriented API for the periodic table.
+.. toctree::
+   :maxdepth: 2
+
 
 
 Indices and tables
@@ -15,9 +20,3 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
-Footnotes
-=========
-
-.. [#element] The input for the `element class <#elements.Element>`_ is **not** case sensitive. It capitalizes strings for you.
-
-.. [#semantic] Make sure you don't confuse the 1 (integer) with the 1.0 (float)! Periodic makes assumptions about what type of data you are giving it based on the type of the data.
