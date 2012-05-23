@@ -60,6 +60,10 @@ def find(_input):
     if value is float:
         return query.filter_by(mass=_input).first()
 
+    if value is str and 0 < len(_input) <= 2:
+        return query.filter_by(symbol=_input).first()
+            
+
 # Testing _type func
 #========================================================================
 
@@ -74,3 +78,4 @@ assert _type('hydrogen') == str
 hydrogen = query.filter_by(name='Hydrogen').first()
 assert hydrogen == find(1)
 assert hydrogen == find(1.00794)
+assert hydrogen == find('H')
