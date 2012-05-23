@@ -1,35 +1,38 @@
 import csv
 import os
 
+from sqlalchemy import Column, Integer, String, create_engine, Float
+from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.ext.declarative import declarative_base
+
+# Database
+#========================================================================
+_PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+_INDEX = os.path.join(_PROJECT_ROOT, 'table.db')
+engine = create_engine('sqlite:///{path}'.format(path=_INDEX), echo=False)
+Session = sessionmaker(bind=engine)
+session = Session()
+Base = declarative_base()
+
+
+#========================================================================
 __author__ = 'Luis Naranjo'
 __email__ = 'luisnaranjo733@hotmail.com'
 
-_script = os.path.abspath(os.path.dirname(__file__))
-_csvfile = open(os.path.join(_script, 'table.csv'))
-_reader = csv.reader(_csvfile)
 
-elements = {}
+class Element(Base):
+    __tablename__ = 'element'
+    id = Column(Integer, primary_key=True)
+    symbol = Column(String)  # 'Zr'
+    name = Column(String)  # 'Zirconium
+    atomic = Column(Integer)  # 40
+    mass = Column(Float)  # 91.2240000000
 
-for atomic, mass, name, symbol in _reader:
-    elements[symbol] = dict([
-        ('atomic', atomic), 
-        ('mass', mass), 
-        ('name', name)])
-
-def convert(element):
-    """Convert any element-string into its' corresponding symbol, if it is a real element.
-
-Stuff."""
-
-    try:
-        element = float(element)
-    except ValueError: pass
+    def __repr__(self):
+        return "<Element('%s')>" % self.symbol
 
 
-    if isinstance(element, str): print "string"
+#Base.metadata.create_all(engine)  # init table
 
-class element(object):
-    def __init__(self, _input):
-        self.input = _input
 
-print elements['H']
+
