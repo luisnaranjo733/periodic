@@ -12,10 +12,12 @@ setup(
     license = "GNU GPL",
     keywords = "chem chemistry periodic table finder elements",
     url = "https://github.com/doubledubba/periodic",
-    packages=['periodic'],
-    long_description=read('README.txt'),
+    packages = find_packages(),
+    package_data = {'': ['*.csv']},
+    #long_description=read('README.txt'),
     classifiers=[
         "License :: OSI Approved :: GNU General Public License (GPL)",
         "Topic :: Utilities",
     ],
+
 )
