@@ -37,14 +37,14 @@ class Element(_Base):
 
 elements = session.query(Element).order_by(Element.atomic).all()  # Ordered list of all of the elements
 
-def _type(_type):
-    """Returns a string repr of the 'real _type'."""
+def type_(type_):
+    """Returns a string repr of the 'real type_'."""
 
     try:
-        _type = float(_type)
-        if _type.is_integer():
+        type_ = float(type_)
+        if type_.is_integer():
             return int
-        if not _type.is_integer():
+        if not type_.is_integer():
             return float
     except ValueError:
         return str
@@ -53,7 +53,7 @@ def _type(_type):
 def element(_input):
     """Insert docstring here."""
 
-    value = _type(_input)
+    value = type_(_input)
 
     if value is int:
         return session.query(Element).filter_by(atomic=_input).first()
