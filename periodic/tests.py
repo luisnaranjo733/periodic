@@ -22,3 +22,5 @@ tests = [
 
 for test in tests:
     assert hydrogen == table.element(test)
+
+session.query(Element).order_by(Element.symbol).all()[:3]

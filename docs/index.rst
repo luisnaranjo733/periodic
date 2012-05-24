@@ -17,6 +17,9 @@ Mg
 Magnesium
 24.305
 
+>>> session.query(Element).order_by(Element.symbol).all()[:3]
+[<Element(symbol='Ac', atomic_number='89')>, <Element(symbol='Ag', atomic_number='47')>, <Element(symbol='Al', atomic_number='13')>]
+
 Installation
 ============
 
@@ -74,7 +77,29 @@ Periodic also includes 'loose' atomic mass variables, for quick calculations.
 >>> H+Cl
 36.4609
 
+Advanced database queries
+-------------------------
 
+Periodic relies on sqlalchemy for storage.
+Periodic leaves the "session" variable exposed, from sqlalchemy.
+
+You can use this to make useful database queries. Here are a few examples to get the ideas flowing:
+
+1. If you wanted to show the first three elements, ordered by their symbols you can do something like this:
+
+>>> from periodic.table import session
+>>> session.query(Element).order_by(Element.symbol).all()[:3]  # 
+[<Element('Ac', '89')>, <Element('Ag', '47')>, <Element('Al', '13')>]
+
+2. show the four heaviest elements in the periodic table (ordered by atomic mass)
+
+>>> from periodic.table import session
+>>> session.query(Element).order_by(Element.mass).all()[-4:]  # Show the four heaviest elements in the periodic table (ordered by atomic mass).
+[<Element('Uup', '115')>, <Element('Uuq', '114')>, <Element('Uuh', '116')>, <Element('Uuo', '118')>]
+
+Refer to the sqlalchemy `documentation`_ for more information on using that ORM.
+
+.. _documentation: http://docs.sqlalchemy.org/en/rel_0_7/index.html
 
 Interactive shell
 -----------------

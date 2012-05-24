@@ -32,10 +32,10 @@ class Element(_Base):
     mass = _sqlalchemy.Column(_sqlalchemy.Float)  # 91.2240000000
 
     def __repr__(self):
-        representation = "<Element(symbol='%s', atomic_number='%s')>"
+        representation = "<Element('%s', '%s')>"
         return representation % (self.symbol, self.atomic)
 
-elements = session.query(Element).order_by(Element.atomic)  # Ordered list of all of the elements
+elements = session.query(Element).order_by(Element.atomic).all()  # Ordered list of all of the elements
 
 def _type(_type):
     """Returns a string repr of the 'real _type'."""
