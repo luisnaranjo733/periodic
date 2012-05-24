@@ -23,7 +23,7 @@ _Base = _sqlalchemy.ext.declarative.declarative_base()
 
 attributes = ['atomic', 'symbol', 'name', 'mass']
 
-class _Element(_Base):
+class Element(_Base):
     __tablename__ = 'element'
     id = _sqlalchemy.Column(_sqlalchemy.Integer, primary_key=True)
     symbol = _sqlalchemy.Column(_sqlalchemy.String)  # 'Zr'
@@ -35,7 +35,7 @@ class _Element(_Base):
         representation = "<Element(symbol='%s', atomic_number='%s')>"
         return representation % (self.symbol, self.atomic)
 
-elements = session.query(_Element).order_by(_Element.atomic)  # Ordered list of all of the elements
+elements = session.query(Element).order_by(Element.atomic)  # Ordered list of all of the elements
 
 def _type(_type):
     """Returns a string repr of the 'real _type'."""
@@ -56,19 +56,19 @@ def element(_input):
     value = _type(_input)
 
     if value is int:
-        return session.query(_Element).filter_by(atomic=_input).first()
+        return session.query(Element).filter_by(atomic=_input).first()
 
     if value is float:
-        return session.query(_Element).filter_by(mass=_input).first()
+        return session.query(Element).filter_by(mass=_input).first()
 
     if value is str:
         _input = _input.capitalize()
 
     if value is str and 0 < len(_input) <= 2:
-        return session.query(_Element).filter_by(symbol=_input).first()
+        return session.query(Element).filter_by(symbol=_input).first()
 
     if value is str and len(_input) > 2:
-        return session.query(_Element).filter_by(name=_input).first()
+        return session.query(Element).filter_by(name=_input).first()
 
 table = '''  -----                                                               -----
 1 | H |                                                               |He |
