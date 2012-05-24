@@ -22,7 +22,7 @@ _Base = _sqlalchemy.ext.declarative.declarative_base()
 #========================================================================
 
 
-class Element(_Base):
+class _Element(_Base):
     __tablename__ = 'element'
     id = _sqlalchemy.Column(_sqlalchemy.Integer, primary_key=True)
     symbol = _sqlalchemy.Column(_sqlalchemy.String)  # 'Zr'
@@ -31,11 +31,11 @@ class Element(_Base):
     mass = _sqlalchemy.Column(_sqlalchemy.Float)  # 91.2240000000
 
     def __repr__(self):
-        representation = "<Element(symbol='%s', atomic_number='%s')>"
+        representation = "<_Element(symbol='%s', atomic_number='%s')>"
         return representation % (self.symbol, self.atomic)
 
 #Base.metadata.create_all(_engine)  # init table
-_query = session.query(Element)
+_query = session.query(_Element)
 elements = _query.all()  # List of all of the elements
 
 
@@ -92,3 +92,4 @@ table = '''  -----                                                              
               |---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
    Actinide   |Ac |Th |Pa | U |Np |Pu |Am |Cm |Bk |Cf |Es |Fm |Md |No |Lw |
               -------------------------------------------------------------'''
+del sqlalchemy, session
