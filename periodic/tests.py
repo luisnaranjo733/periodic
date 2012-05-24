@@ -10,7 +10,7 @@ assert table._type('H') == str
 
 # Testing database queries
 #========================================================================
-hydrogen = table._query.filter_by(name='Hydrogen').first()
+hydrogen = table.session.query(table._Element).filter_by(name='Hydrogen').first()
 tests = [
     1,
     1.00794,

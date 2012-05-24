@@ -1,15 +1,21 @@
-.. periodic documentation master file, created by
-   sphinx-quickstart on Tue May 22 22:33:32 2012.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
-Welcome to periodic's documentation!
+Periodic
 ====================================
 
 .. toctree::
    :maxdepth: 2
 
 **Periodic** is an `open source`_ simple python API for the periodic table, created by Luis Naranjo
+
+>>> import periodic
+>>> element = periodic.element(12)
+>>> attributes = ['atomic', 'symbol', 'name', 'mass']
+>>> for attribute in attributes:
+...     print getattr(element, attribute)
+... 
+12
+Mg
+Magnesium
+24.305
 
 Installation
 ============
@@ -32,14 +38,14 @@ Usage
 Retrieve element as an object
 -----------------------------
 
->>> from periodic import element
+>>> from periodic.table import element
 >>> hydrogen = element('hydrogen')
 >>> hydrogen.mass
 1.0079
 >>> hydrogen.symbol
 'H'
 
-**Parameters**
+**Class arguments**
 
 The input for elements can be any of the following, and is case *insensitive*.
 
@@ -48,7 +54,7 @@ The input for elements can be any of the following, and is case *insensitive*.
 * atomic number (example: 1) - **INTEGER**
 * atomic mass  (example: 1.0079) - **FLOATING POINT**
 
-**Attributes**
+**Object attributes**
 
 * symbol
 * name

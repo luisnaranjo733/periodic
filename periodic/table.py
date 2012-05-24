@@ -11,9 +11,9 @@ __email__ = 'luisnaranjo733@hotmail.com'
 
 # Database
 #========================================================================
-_PROJECT_ROOT = _os.path.abspath(_os.path.dirname(__file__))
-_INDEX = _os.path.join(_PROJECT_ROOT, 'table.db')
-_engine = _sqlalchemy.create_engine('sqlite:///{path}'.format(path=_INDEX))
+_project_root = _os.path.abspath(_os.path.dirname(__file__))
+_index = _os.path.join(_project_root, 'table.db')
+_engine = _sqlalchemy.create_engine('sqlite:///{path}'.format(path=_index))
 _Session = _sqlalchemy.orm.sessionmaker(bind=_engine)
 session = _Session()
 _Base = _sqlalchemy.ext.declarative.declarative_base()
@@ -21,6 +21,7 @@ _Base = _sqlalchemy.ext.declarative.declarative_base()
 
 #========================================================================
 
+attributes = ['atomic', 'symbol', 'name', 'mass']
 
 class _Element(_Base):
     __tablename__ = 'element'
@@ -31,13 +32,10 @@ class _Element(_Base):
     mass = _sqlalchemy.Column(_sqlalchemy.Float)  # 91.2240000000
 
     def __repr__(self):
-        representation = "<_Element(symbol='%s', atomic_number='%s')>"
+        representation = "<Element(symbol='%s', atomic_number='%s')>"
         return representation % (self.symbol, self.atomic)
 
-#Base.metadata.create_all(_engine)  # init table
-_query = session.query(_Element)
-elements = _query.all()  # List of all of the elements
-
+elements = session.query(_Element).order_by(_Element.atomic)  # Ordered list of all of the elements
 
 def _type(_type):
     """Returns a string repr of the 'real _type'."""
@@ -58,19 +56,19 @@ def element(_input):
     value = _type(_input)
 
     if value is int:
-        return _query.filter_by(atomic=_input).first()
+        return session.query(_Element).filter_by(atomic=_input).first()
 
     if value is float:
-        return _query.filter_by(mass=_input).first()
+        return session.query(_Element).filter_by(mass=_input).first()
 
     if value is str:
         _input = _input.capitalize()
 
     if value is str and 0 < len(_input) <= 2:
-        return _query.filter_by(symbol=_input).first()
+        return session.query(_Element).filter_by(symbol=_input).first()
 
     if value is str and len(_input) > 2:
-        return _query.filter_by(name=_input).first()
+        return session.query(_Element).filter_by(name=_input).first()
 
 table = '''  -----                                                               -----
 1 | H |                                                               |He |
@@ -92,4 +90,4 @@ table = '''  -----                                                              
               |---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
    Actinide   |Ac |Th |Pa | U |Np |Pu |Am |Cm |Bk |Cf |Es |Fm |Md |No |Lw |
               -------------------------------------------------------------'''
-del sqlalchemy, session
+del sqlalchemy
