@@ -1,10 +1,9 @@
 """table
 ====="""
-
-import csv
 import os
 
-from sqlalchemy import Column, Integer, String, create_engine, Float
+#from sqlalchemy import Column, Integer, String, create_engine, Float
+import sqlalchemy
 import sqlalchemy.orm
 import sqlalchemy.ext.declarative
 
@@ -15,29 +14,29 @@ __email__ = 'luisnaranjo733@hotmail.com'
 #========================================================================
 _PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
 _INDEX = os.path.join(_PROJECT_ROOT, 'table.db')
-engine = create_engine('sqlite:///{path}'.format(path=_INDEX), echo=False)
-Session = sqlalchemy.orm.sessionmaker(bind=engine)
-session = Session()
-Base = sqlalchemy.ext.declarative.declarative_base()
+_engine = sqlalchemy.create_engine('sqlite:///{path}'.format(path=_INDEX), echo=False)
+_Session = sqlalchemy.orm.sessionmaker(bind=_engine)
+session = _Session()
+_Base = sqlalchemy.ext.declarative.declarative_base()
 
 
 #========================================================================
 
 
-class Element(Base):
+class Element(_Base):
     __tablename__ = 'element'
-    id = Column(Integer, primary_key=True)
-    symbol = Column(String)  # 'Zr'
-    name = Column(String)  # 'Zirconium
-    atomic = Column(Integer)  # 40
-    mass = Column(Float)  # 91.2240000000
+    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
+    symbol = sqlalchemy.Column(sqlalchemy.String)  # 'Zr'
+    name = sqlalchemy.Column(sqlalchemy.String)  # 'Zirconium
+    atomic = sqlalchemy.Column(sqlalchemy.Integer)  # 40
+    mass = sqlalchemy.Column(sqlalchemy.Float)  # 91.2240000000
 
     def __repr__(self):
         return "<Element(symbol='%s', atomic_number='%s')>" % (self.symbol, self.atomic)
 
-#Base.metadata.create_all(engine)  # init table
-query = session.query(Element)
-elements = query.all()  # List of all of the elements
+#Base.metadata.create_all(_engine)  # init table
+_query = session.query(Element)
+elements = _query.all()  # List of all of the elements
 
 
 def _type(_type):
@@ -59,19 +58,19 @@ def element(_input):
     value = _type(_input)
 
     if value is int:
-        return query.filter_by(atomic=_input).first()
+        return _query.filter_by(atomic=_input).first()
 
     if value is float:
-        return query.filter_by(mass=_input).first()
+        return _query.filter_by(mass=_input).first()
 
     if value is str:
         _input = _input.capitalize()
 
     if value is str and 0 < len(_input) <= 2:
-        return query.filter_by(symbol=_input).first()
+        return _query.filter_by(symbol=_input).first()
 
     if value is str and len(_input) > 2:
-        return query.filter_by(name=_input).first()
+        return _query.filter_by(name=_input).first()
 
 table = '''  -----                                                               -----
 1 | H |                                                               |He |
@@ -93,27 +92,4 @@ table = '''  -----                                                              
               |---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
    Actinide   |Ac |Th |Pa | U |Np |Pu |Am |Cm |Bk |Cf |Es |Fm |Md |No |Lw |
               -------------------------------------------------------------'''
-
-# Testing _type function
-#========================================================================
-
-assert _type(1) == int
-assert _type(15.999) == float
-assert _type('hydrogen') == str
-assert _type('H') == str
-
-# Testing database queries
-#========================================================================
-hydrogen = query.filter_by(name='Hydrogen').first()
-tests = [
-    1,
-    1.00794,
-    'H',
-    'h',
-    'Hydrogen',
-    'hydrogen',
-]
-
-for test in tests:
-    assert hydrogen == element(test)
 
