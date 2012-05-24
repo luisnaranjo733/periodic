@@ -60,11 +60,17 @@ def find(_input):
     if value is float:
         return query.filter_by(mass=_input).first()
 
+    if value is str:
+        _input = _input.capitalize()
+
     if value is str and 0 < len(_input) <= 2:
         return query.filter_by(symbol=_input).first()
+
+    if value is str and len(_input) > 2:
+        return query.filter_by(name=_input).first()
             
 
-# Testing _type func
+# Testing _type function
 #========================================================================
 
 assert _type(1) == int
@@ -73,9 +79,17 @@ assert _type('hydrogen') == str
 
 
 
-# Testing
+# Testing database queries
 #========================================================================
 hydrogen = query.filter_by(name='Hydrogen').first()
-assert hydrogen == find(1)
-assert hydrogen == find(1.00794)
-assert hydrogen == find('H')
+tests = [
+    1,
+    1.00794,
+    'H',
+    'h',
+    'Hydrogen',
+    'hydrogen',
+]
+
+for test in tests:
+    assert hydrogen == find(test)
