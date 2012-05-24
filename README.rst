@@ -12,5 +12,5 @@ Basic Usage
 
 >>> from periodic import element
 >>> hydrogen = element('hydrogen')
->>> print(hydrogen.mass)
+>>> hydrogen.mass
 1.0079

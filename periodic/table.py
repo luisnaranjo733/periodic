@@ -4,7 +4,7 @@ import csv
 import os
 
 from sqlalchemy import Column, Integer, String, create_engine, Float
-from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 
 __author__ = 'Luis Naranjo'
@@ -51,7 +51,7 @@ def _type(_type):
         return str
 
 
-def find(_input):
+def element(_input):
     """Insert docstring here."""
 
     value = _type(_input)
@@ -91,4 +91,4 @@ tests = [
 ]
 
 for test in tests:
-    assert hydrogen == find(test)
+    assert hydrogen == element(test)

@@ -1,7 +1,9 @@
 from setuptools import setup,find_packages
 import os
 def read(fname):
-    return open(fname).read()
+    fpath = os.path.join(
+        os.path.abspath(os.path.dirname(__file__)), fname)
+    return open(fpath).read()
     
 setup(
     name = "periodic",
@@ -13,7 +15,7 @@ setup(
     keywords = "chem chemistry periodic table finder elements",
     url = "https://github.com/doubledubba/periodic",
     packages = find_packages(),
-    package_data = {'': ['*.csv']},
+    package_data = {'': ['table.db', 'README.rst']},
     #long_description=read('README.txt'),
     classifiers=[
         "License :: OSI Approved :: GNU General Public License (GPL)",
