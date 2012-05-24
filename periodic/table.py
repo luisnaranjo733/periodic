@@ -1,9 +1,8 @@
 """table
 ====="""
-import os
+import os as _os
 
-#from sqlalchemy import Column, Integer, String, create_engine, Float
-import sqlalchemy
+import sqlalchemy as _sqlalchemy
 import sqlalchemy.orm
 import sqlalchemy.ext.declarative
 
@@ -12,12 +11,12 @@ __email__ = 'luisnaranjo733@hotmail.com'
 
 # Database
 #========================================================================
-_PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
-_INDEX = os.path.join(_PROJECT_ROOT, 'table.db')
-_engine = sqlalchemy.create_engine('sqlite:///{path}'.format(path=_INDEX), echo=False)
-_Session = sqlalchemy.orm.sessionmaker(bind=_engine)
+_PROJECT_ROOT = _os.path.abspath(_os.path.dirname(__file__))
+_INDEX = _os.path.join(_PROJECT_ROOT, 'table.db')
+_engine = _sqlalchemy.create_engine('sqlite:///{path}'.format(path=_INDEX))
+_Session = _sqlalchemy.orm.sessionmaker(bind=_engine)
 session = _Session()
-_Base = sqlalchemy.ext.declarative.declarative_base()
+_Base = _sqlalchemy.ext.declarative.declarative_base()
 
 
 #========================================================================
@@ -25,14 +24,15 @@ _Base = sqlalchemy.ext.declarative.declarative_base()
 
 class Element(_Base):
     __tablename__ = 'element'
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True)
-    symbol = sqlalchemy.Column(sqlalchemy.String)  # 'Zr'
-    name = sqlalchemy.Column(sqlalchemy.String)  # 'Zirconium
-    atomic = sqlalchemy.Column(sqlalchemy.Integer)  # 40
-    mass = sqlalchemy.Column(sqlalchemy.Float)  # 91.2240000000
+    id = _sqlalchemy.Column(_sqlalchemy.Integer, primary_key=True)
+    symbol = _sqlalchemy.Column(_sqlalchemy.String)  # 'Zr'
+    name = _sqlalchemy.Column(_sqlalchemy.String)  # 'Zirconium
+    atomic = _sqlalchemy.Column(_sqlalchemy.Integer)  # 40
+    mass = _sqlalchemy.Column(_sqlalchemy.Float)  # 91.2240000000
 
     def __repr__(self):
-        return "<Element(symbol='%s', atomic_number='%s')>" % (self.symbol, self.atomic)
+        representation = "<Element(symbol='%s', atomic_number='%s')>"
+        return representation % (self.symbol, self.atomic)
 
 #Base.metadata.create_all(_engine)  # init table
 _query = session.query(Element)
@@ -92,4 +92,3 @@ table = '''  -----                                                              
               |---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
    Actinide   |Ac |Th |Pa | U |Np |Pu |Am |Cm |Bk |Cf |Es |Fm |Md |No |Lw |
               -------------------------------------------------------------'''
-
