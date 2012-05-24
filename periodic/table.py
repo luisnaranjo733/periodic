@@ -23,7 +23,6 @@ Base = declarative_base()
 #========================================================================
 
 
-
 class Element(Base):
     __tablename__ = 'element'
     id = Column(Integer, primary_key=True)
@@ -38,8 +37,9 @@ class Element(Base):
 #Base.metadata.create_all(engine)  # init table
 query = session.query(Element)
 
+
 def _type(_type):
-    """Takes a _type, and returns a string representation of its' real _type."""
+    """Returns a string repr of the 'real _type'."""
 
     try:
         _type = float(_type)
@@ -52,6 +52,8 @@ def _type(_type):
 
 
 def find(_input):
+    """Insert docstring here."""
+
     value = _type(_input)
 
     if value is int:
@@ -68,7 +70,6 @@ def find(_input):
 
     if value is str and len(_input) > 2:
         return query.filter_by(name=_input).first()
-            
 
 # Testing _type function
 #========================================================================
@@ -76,8 +77,6 @@ def find(_input):
 assert _type(1) == int
 assert _type(15.999) == float
 assert _type('hydrogen') == str
-
-
 
 # Testing database queries
 #========================================================================
