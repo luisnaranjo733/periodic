@@ -7,17 +7,31 @@ Created by Luis Naranjo <luisnaranjo733@hotmail.com>
 
 Documentation at http://periodic.readthedocs.org
 
+Installation
+************
+
+$ pip install periodic
+
 Basic Usage
-===========
+***********
+
+Retrieve element as an object
+=============================
 
 >>> from periodic import element
 >>> hydrogen = element('hydrogen')
 >>> hydrogen.mass
 1.0079
 
+Advanced database queries (using sqlalchemy)
+=============================================
+
 >>> from periodic.table import session
->>> session.query(Element).order_by(Element.mass).all()[-4:]  # Show the four heaviest elements in the periodic table (ordered by atomic mass).
+>>> session.query(Element).order_by(Element.mass).all()[-4:]
 [<Element('Uup', '115')>, <Element('Uuq', '114')>, <Element('Uuh', '116')>, <Element('Uuo', '118')>]
+
+ASCII Table
+===========
 
 >>> import periodic
 >>> print periodic.table
@@ -41,4 +55,45 @@ Basic Usage
               |---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
    Actinide   |Ac |Th |Pa | U |Np |Pu |Am |Cm |Bk |Cf |Es |Fm |Md |No |Lw |
               -------------------------------------------------------------
+
+Interactive shell (Console script)
+==================================
+
+Periodic provides an originally named console script called 'periodic'.
+
+It's usage for now is limited to periodic table reference.
+
+In the future, it will be able to do with elements!
+::
+
+    $ periodic
+    Enter any of the following periodic values of the element you are looking for:
+	    ['atomic', 'symbol', 'name', 'mass']
+
+    Use ^C or type 'exit' to exit.
+    ========================================================================
+    > 12
+    atomic: 12
+    symbol: Mg
+    name: Magnesium
+    mass: 24.305
+    ========================================================================
+    > uranium
+    atomic: 92
+    symbol: U
+    name: Uranium
+    mass: 238.02891
+    ========================================================================
+    > H
+    atomic: 1
+    symbol: H
+    name: Hydrogen
+    mass: 1.00794
+    ========================================================================
+    > 15.9994
+    atomic: 8
+    symbol: O
+    name: Oxygen
+    mass: 15.9994
+    ========================================================================
 
