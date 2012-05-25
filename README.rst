@@ -64,9 +64,18 @@ Periodic provides an originally named console script called 'periodic'.
 It's usage for now is limited to periodic table reference.
 
 In the future, it will be able to do with elements!
-::
+
+This interactive shell may also be invoked from the python interpreter:
+
+>>> import periodic
+>>> periodic.interactive_shell()
+
+Or from the command line::
 
     $ periodic
+
+::
+
     Enter any of the following periodic values of the element you are looking for:
 	    ['atomic', 'symbol', 'name', 'mass']
 
