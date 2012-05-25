@@ -10,9 +10,7 @@ Documentation at http://periodic.readthedocs.org
 Installation
 ************
 
-::
-
-    pip install periodic
+>>> pip install periodic
 
 Basic Usage
 ***********
