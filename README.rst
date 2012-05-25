@@ -26,7 +26,7 @@ Retrieve element as an object
 Advanced database queries (using sqlalchemy)
 =============================================
 
->>> from periodic.table import session
+>>> from periodic.table import session, Element
 >>> session.query(Element).order_by(Element.mass).all()[-4:]  # 4 heaviest elements (by mass)
 [<Element('Uup', '115')>, <Element('Uuq', '114')>, <Element('Uuh', '116')>, <Element('Uuo', '118')>]
 

@@ -95,13 +95,13 @@ Here are a few examples to get your ideas flowing:
 
 1. If you wanted to show the first three elements, ordered by their symbols you can do something like this:
 
->>> from periodic.table import session
+>>> from periodic.table import session, Element
 >>> session.query(Element).order_by(Element.symbol).all()[:3]  # 
 [<Element('Ac', '89')>, <Element('Ag', '47')>, <Element('Al', '13')>]
 
 2. show the four heaviest elements in the periodic table (ordered by atomic mass)
 
->>> from periodic.table import session
+>>> from periodic.table import session, Element
 >>> session.query(Element).order_by(Element.mass).all()[-4:]  # Show the four heaviest elements in the periodic table (ordered by atomic mass).
 [<Element('Uup', '115')>, <Element('Uuq', '114')>, <Element('Uuh', '116')>, <Element('Uuo', '118')>]
 
