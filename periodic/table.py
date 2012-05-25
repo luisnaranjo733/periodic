@@ -1,13 +1,9 @@
-"""table
-====="""
 import os as _os
+from sys import exit
 
 import sqlalchemy as _sqlalchemy
 import sqlalchemy.orm
 import sqlalchemy.ext.declarative
-
-__author__ = 'Luis Naranjo'
-__email__ = 'luisnaranjo733@hotmail.com'
 
 # Database
 #========================================================================
@@ -18,10 +14,8 @@ _Session = _sqlalchemy.orm.sessionmaker(bind=_engine)
 session = _Session()
 _Base = _sqlalchemy.ext.declarative.declarative_base()
 
-
 #========================================================================
 
-attributes = ['atomic', 'symbol', 'name', 'mass']
 
 class Element(_Base):
     __tablename__ = 'element'
@@ -37,6 +31,7 @@ class Element(_Base):
 
 elements = session.query(Element).order_by(Element.atomic).all()  # Ordered list of all of the elements
 
+
 def type_(type_):
     """Returns a string repr of the 'real type_'."""
 
@@ -51,7 +46,7 @@ def type_(type_):
 
 
 def element(_input):
-    """Insert docstring here."""
+    """Takes periodic data as input, and returns the correct element."""
 
     value = type_(_input)
 
@@ -69,6 +64,38 @@ def element(_input):
 
     if value is str and len(_input) > 2:
         return session.query(Element).filter_by(name=_input).first()
+
+attributes = ['atomic', 'symbol', 'name', 'mass']  # Attributes in an Element instance
+
+
+def interactive_shell():
+    usage = """Enter any of the following periodic values of the element you are looking for:
+\t{attributes}
+""".format(attributes=str(attributes))
+
+    print(usage)
+    print("Use ^C or type 'exit' to exit.")
+
+    buff = '=' * 72
+    while True:
+        try:
+            print(buff)
+            query = raw_input("> ")
+            if query == 'exit':
+                raise KeyboardInterrupt
+        except KeyboardInterrupt:
+            print("\nBye!")
+            exit(0)
+        element_ = element(query)
+        try:
+            values = [attribute + ": %s" % getattr(element_, attribute) for attribute in attributes]
+        except AttributeError:
+            print("'{query}' is not valid!".format(query=query))
+            print(usage)
+            continue
+
+        for line in values:
+            print(line)
 
 table = '''  -----                                                               -----
 1 | H |                                                               |He |
@@ -91,3 +118,6 @@ table = '''  -----                                                              
    Actinide   |Ac |Th |Pa | U |Np |Pu |Am |Cm |Bk |Cf |Es |Fm |Md |No |Lw |
               -------------------------------------------------------------'''
 del sqlalchemy
+
+if __name__ == '__main__':
+    interactive_shell()
