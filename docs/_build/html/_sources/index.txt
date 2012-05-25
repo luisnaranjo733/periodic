@@ -109,7 +109,7 @@ Refer to the sqlalchemy documentation for more information on using that ORM.
 
 .. _sqlalchemy: http://docs.sqlalchemy.org/en/rel_0_7/index.html
 
-ASCII Periodic Table
+Periodic Table
 **************
 
 There is also a nice ascii periodic table available:
