@@ -12,7 +12,7 @@ Installation
 
 ::
 
-pip install periodic
+    pip install periodic
 
 Basic Usage
 ***********
