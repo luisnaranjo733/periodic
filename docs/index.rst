@@ -1,10 +1,16 @@
 Periodic
-====================================
+********
 
 .. toctree::
    :maxdepth: 2
 
-**Periodic** is an `open source`_ simple python API for the periodic table, created by Luis Naranjo
+.. automodule:: periodic.table
+
+**Periodic** is an `open source`_ simple python API/command line script for the periodic table.
+
+Developed by Luis Naranjo <luisnaranjo733@hotmail.com>
+
+.. _open source: https://github.com/doubledubba/periodic
 
 >>> import periodic
 >>> element = periodic.element(12)
@@ -17,11 +23,8 @@ Mg
 Magnesium
 24.305
 
->>> session.query(Element).order_by(Element.symbol).all()[:3]
-[<Element(symbol='Ac', atomic_number='89')>, <Element(symbol='Ag', atomic_number='47')>, <Element(symbol='Al', atomic_number='13')>]
-
 Installation
-============
+************
 
 If you haven't installed pip yet, `here`_ is an excellent guide on how to do so (in the 'Properly Install Python' section).
 
@@ -35,11 +38,8 @@ or if you are on a Linux or Mac OS,
 
 >>> sudo pip install periodic
 
-Usage
-=====
-
 Retrieve element as an object
------------------------------
+*****************************
 
 >>> from periodic.table import element
 >>> hydrogen = element('hydrogen')
@@ -47,6 +47,8 @@ Retrieve element as an object
 1.0079
 >>> hydrogen.symbol
 'H'
+
+.. autoclass:: element
 
 **Class arguments**
 
@@ -57,7 +59,11 @@ The input for elements can be any of the following, and is case *insensitive*.
 * atomic number (example: 1) - **INTEGER**
 * atomic mass  (example: 1.0079) - **FLOATING POINT**
 
-**Object attributes**
+**Returns**
+
+Returns an Element object, or None
+
+**Element attributes**
 
 * symbol
 * name
@@ -67,7 +73,7 @@ The input for elements can be any of the following, and is case *insensitive*.
 * type
 
 Periodic mass variables
------------------------ 
+***********************
 
 Periodic also includes 'loose' atomic mass variables, for quick calculations.
 
@@ -78,12 +84,14 @@ Periodic also includes 'loose' atomic mass variables, for quick calculations.
 36.4609
 
 Advanced database queries
--------------------------
+*************************
 
-Periodic relies on sqlalchemy for storage.
+Periodic relies on `sqlalchemy`_ for storage.
 Periodic leaves the "session" variable exposed, from sqlalchemy.
 
-You can use this to make useful database queries. Here are a few examples to get the ideas flowing:
+You can use this to make useful database queries.
+
+Here are a few examples to get your ideas flowing:
 
 1. If you wanted to show the first three elements, ordered by their symbols you can do something like this:
 
@@ -97,19 +105,14 @@ You can use this to make useful database queries. Here are a few examples to get
 >>> session.query(Element).order_by(Element.mass).all()[-4:]  # Show the four heaviest elements in the periodic table (ordered by atomic mass).
 [<Element('Uup', '115')>, <Element('Uuq', '114')>, <Element('Uuh', '116')>, <Element('Uuo', '118')>]
 
-Refer to the sqlalchemy `documentation`_ for more information on using that ORM.
+Refer to the sqlalchemy documentation for more information on using that ORM.
 
-.. _documentation: http://docs.sqlalchemy.org/en/rel_0_7/index.html
-
-Interactive shell
------------------
-
-TO BE IMPLEMENTED
+.. _sqlalchemy: http://docs.sqlalchemy.org/en/rel_0_7/index.html
 
 Periodic Table
---------------
+**************
 
-There is also a *nice* ascii periodic table available:
+There is also a nice ascii periodic table available:
 
 >>> import periodic
 >>> print periodic.table
@@ -134,16 +137,51 @@ There is also a *nice* ascii periodic table available:
    Actinide   |Ac |Th |Pa | U |Np |Pu |Am |Cm |Bk |Cf |Es |Fm |Md |No |Lw |
               -------------------------------------------------------------
 
-.. _open source: https://launchpad.net/periodic
+Interactive shell (API)
+***********************
 
-.. automodule:: periodic.table
-   :members:
+Invoking the interactive shell from python is as easy as
 
+>>> import periodic
+>>> periodic.interactive_shell()
 
-Indices and tables
-==================
+Interactive shell (Console script)
+**********************************
 
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+Periodic provides an originally named console script called 'periodic'.
 
+It's usage for now is limited to periodic table reference.
+
+In the future, it will be able to do with elements!
+::
+
+    $ periodic
+    Enter any of the following periodic values of the element you are looking for:
+	    ['atomic', 'symbol', 'name', 'mass']
+
+    Use ^C or type 'exit' to exit.
+    ========================================================================
+    > 12
+    atomic: 12
+    symbol: Mg
+    name: Magnesium
+    mass: 24.305
+    ========================================================================
+    > uranium
+    atomic: 92
+    symbol: U
+    name: Uranium
+    mass: 238.02891
+    ========================================================================
+    > H
+    atomic: 1
+    symbol: H
+    name: Hydrogen
+    mass: 1.00794
+    ========================================================================
+    > 15.9994
+    atomic: 8
+    symbol: O
+    name: Oxygen
+    mass: 15.9994
+    ========================================================================

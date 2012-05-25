@@ -67,7 +67,7 @@ def element(_input):
 
 attributes = ['atomic', 'symbol', 'name', 'mass']  # Attributes in an Element instance
 
-
+#  TODO: Add math support for elements in interative_shell
 def interactive_shell():
     usage = """Enter any of the following periodic values of the element you are looking for:
 \t{attributes}
