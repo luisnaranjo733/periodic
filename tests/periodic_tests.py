@@ -3,14 +3,18 @@ import periodic
 # Testing type_ function
 #========================================================================
 
+
 def test_type_():
     assert periodic.type_(1) == int
     assert periodic.type_(15.999) == float
     assert periodic.type_('hydrogen') == str
     assert periodic.type_('H') == str
+    return True
 
 # Testing database queries
 #========================================================================
+
+
 def test_correct_elements():
     hydrogen = periodic.session.query(periodic.Element).filter_by(name='Hydrogen').first()
     tests = [
@@ -27,6 +31,9 @@ def test_correct_elements():
     for test in tests:
         assert hydrogen == periodic.element(test)
 
+    return True
+
+
 def test_incorrect_elements():
     tests = [
         '125',
@@ -36,6 +43,9 @@ def test_incorrect_elements():
     ]
     for test in tests:
         assert periodic.element(test) == None
+
+    return True
+
 
 def test_asciitable():
     assert periodic.table == '''  -----                                                               -----
@@ -59,11 +69,25 @@ def test_asciitable():
    Actinide   |Ac |Th |Pa | U |Np |Pu |Am |Cm |Bk |Cf |Es |Fm |Md |No |Lw |
               -------------------------------------------------------------'''
 
+    return True
+
+tests = [test_type_, test_correct_elements, test_incorrect_elements, test_asciitable]
+
+
 def test_all():
-    test_type_()
-    test_correct_elements()
-    test_incorrect_elements
-    test_asciitable()
+    passed = 0
+    total = len(tests)
+
+    for test in tests:
+        result = test()
+        if result:
+            print("'%s' passed." % test.func_name)
+            passed += 1
+
+        if not result:
+            print("'%s' failed." % test.func_name)
+
+    print "%d/%d tests passed." % (passed, total)
 
 if __name__ == '__main__':
     test_all()
