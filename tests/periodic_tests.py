@@ -11,7 +11,7 @@ def test_type_():
 
 # Testing database queries
 #========================================================================
-def test_element():
+def test_correct_elements():
     hydrogen = periodic.session.query(periodic.Element).filter_by(name='Hydrogen').first()
     tests = [
         1,
@@ -26,6 +26,16 @@ def test_element():
 
     for test in tests:
         assert hydrogen == periodic.element(test)
+
+def test_incorrect_elements():
+    tests = [
+        '125',
+        1232,
+        'asdfas',
+        'HDYROGEN',
+    ]
+    for test in tests:
+        assert periodic.element(test) == None
 
 def test_asciitable():
     assert periodic.table == '''  -----                                                               -----
@@ -51,7 +61,8 @@ def test_asciitable():
 
 def test_all():
     test_type_()
-    test_element()
+    test_correct_elements()
+    test_incorrect_elements
     test_asciitable()
 
 if __name__ == '__main__':
