@@ -7,6 +7,8 @@ Created by Luis Naranjo <luisnaranjo733@hotmail.com>
 
 Documentation at http://periodic.readthedocs.org
 
+Source code https://github.com/doubledubba/periodic
+
 Installation
 ************
 
