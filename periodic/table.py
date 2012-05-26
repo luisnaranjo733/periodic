@@ -117,7 +117,6 @@ table = '''  -----                                                              
               |---+---+---+---+---+---+---+---+---+---+---+---+---+---+---|
    Actinide   |Ac |Th |Pa | U |Np |Pu |Am |Cm |Bk |Cf |Es |Fm |Md |No |Lw |
               -------------------------------------------------------------'''
-del sqlalchemy
 
 if __name__ == '__main__':
     interactive_shell()
