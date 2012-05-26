@@ -6,7 +6,9 @@ import periodic
 
 def test_type_():
     assert periodic.type_(1) == int
+    assert periodic.type_('1') == int
     assert periodic.type_(15.999) == float
+    assert periodic.type_('15.999') == float
     assert periodic.type_('hydrogen') == str
     assert periodic.type_('H') == str
     return True
