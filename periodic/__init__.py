@@ -1,2 +1,2 @@
 from . import mass
-from .table import *
+from . table import *
